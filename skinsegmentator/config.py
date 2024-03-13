@@ -13,14 +13,14 @@ def get_skinseg_dir():
 
 def get_weights_dir():
     skinseg_dir = get_skinseg_dir()
-    config_dir = skinseg_dir / "nnunet/results"
+    config_dir = skinseg_dir / "weights/results"
     return config_dir
 
 
 def setup_nnunet():
     # check if environment variable skinsegmentator_config is set
     config_dir = get_skinseg_dir()
-    weights_dir = config_dir / "nnunet/results"
+    weights_dir = config_dir / "weights/results"
 
     # This variables will only be active during the python script execution. Therefore
     # we do not have to unset them in the end.
