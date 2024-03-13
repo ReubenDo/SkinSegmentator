@@ -15,7 +15,7 @@ Optionally:
 
 Install SkinSegmentator
 ```
-pip install SkinSegmentator
+pip install -U git+https://github.com/ReubenDo/SkinSegmentator#egg=SkinSegmentator
 ```
 
 
