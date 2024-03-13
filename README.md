@@ -9,10 +9,6 @@ Install dependencies:
 * Python >= 3.9
 * [Pytorch](http://pytorch.org/) >= 2.0.0
 
-Optionally:
-* if you use the option `--preview` you have to install xvfb (`apt-get install xvfb`)
-
-
 Install SkinSegmentator
 ```
 pip install -U git+https://github.com/ReubenDo/SkinSegmentator#egg=SkinSegmentator
@@ -25,7 +21,7 @@ SkinSegmentator -i mr.nii.gz -o segmentations
 ```
 > Note: A Nifti file or a folder with all DICOM slices of one patient is allowed as input
 
-> Note: If you run on CPU use the option `--fast` or `--roi_subset` to greatly improve runtime.
+> Note: If you run on CPU use the option `--fast` to greatly improve runtime.
 
 > Note: This is not a medical device and is not intended for clinical usage.
 
