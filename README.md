@@ -1,8 +1,5 @@
 # SkinSegmentator
 
-**ANNOUNCEMENT: We recently released v2. See [changes and improvements](resources/improvements_in_v2.md).**
-
-![Alt text](resources/imgs/overview_classes_2.png)
 
 ### Installation
 
