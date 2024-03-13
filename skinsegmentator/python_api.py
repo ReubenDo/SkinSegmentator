@@ -33,7 +33,7 @@ def skinsegmentator(input: Union[str, Path, Nifti1Image],
     # available devices: gpu | cpu | mps
     if device == "gpu": device = "cuda"
     if device == "cuda" and not torch.cuda.is_available():
-        print("No GPU detected. Running on CPU. This can be very slow. The '--fast' or the `--roi_subset` option can help to reduce runtime.")
+        print("No GPU detected. Running on CPU. This can be very slow. The '--fast' option can help to reduce runtime.")
         device = "cpu"
 
     setup_nnunet()

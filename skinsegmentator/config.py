@@ -7,7 +7,7 @@ import pkg_resources
 
 
 def get_skinseg_dir():
-    skinseg_dir = Path(__file__).parent.parent.resolve()
+    skinseg_dir = Path(__file__).parent.resolve()
     return skinseg_dir
 
 
