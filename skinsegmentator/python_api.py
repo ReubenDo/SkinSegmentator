@@ -11,7 +11,7 @@ from skinsegmentator.config import get_config_key, set_config_key
 def skinsegmentator(input: Union[str, Path, Nifti1Image], 
                      output: Union[str, Path, None]=None, 
                      nr_thr_resamp=1, nr_thr_saving=6,
-                     fast=False, task="total",
+                     fast=False, task="skin",
                      output_type="nifti", quiet=False, verbose=False,
                      skip_saving=False, device="gpu"):
     """
