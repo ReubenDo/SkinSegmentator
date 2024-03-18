@@ -226,7 +226,7 @@ def nnUNetv2_predict(dir_in, dir_out, task_id, model="3d_fullres", folds=None,
 
 
 
-def save_segmentation_nifti(class_map_item, tmp_dir=None, file_out=None, nora_tag=None, header=None, task_name=None, quiet=None):
+def save_segmentation_nifti(class_map_item, tmp_dir=None, output_path=None, nora_tag=None, header=None, task_name=None, quiet=None):
     k, v = class_map_item
     # Have to load img inside of each thread. If passing it as argument a lot slower.
     if not task_name.startswith("skin") and not quiet:
@@ -234,10 +234,8 @@ def save_segmentation_nifti(class_map_item, tmp_dir=None, file_out=None, nora_ta
     img = nib.load(tmp_dir / "s01.nii.gz")
     img_data = img.get_fdata()
     binary_img = img_data == k
-    output_path = str(file_out / f"{v}.nii.gz")
-    nib.save(nib.Nifti1Image(binary_img.astype(np.uint8), img.affine, header), output_path)
-    if nora_tag != "None":
-        subprocess.call(f"/opt/nora/src/node/nora -p {nora_tag} --add {output_path} --addtag mask", shell=True)
+    # output_path = str(file_out / f"{v}.nii.gz")
+    nib.save(nib.Nifti1Image(binary_img.astype(np.uint8), img.affine, header), output_path.format(v))
 
 
 def nnUNet_predict_image(file_in: Union[str, Path, Nifti1Image], 
@@ -259,6 +257,7 @@ def nnUNet_predict_image(file_in: Union[str, Path, Nifti1Image],
             sys.exit("ERROR: The input file or directory does not exist.")
     else:
         img_type = "nifti"
+            
     if file_out is not None:
         file_out = Path(file_out)
     if img_type == "nifti" and output_type == "dicom":
@@ -370,27 +369,42 @@ def nnUNet_predict_image(file_in: Union[str, Path, Nifti1Image],
                 save_mask_as_rtstruct(img_data, selected_classes, file_in_dcm, file_out / "segmentations.dcm")
             else:
                 st = time.time()
-                file_out.mkdir(exist_ok=True, parents=True)
+                if img_type == "nifti":
+                    if '.nii' in file_out.name: # output is a filename
+                        dir_out = file_out.parent
+                        base_output_flnm = file_out.name
+                    else: # output is a folder
+                        dir_out = file_out
+                        if not isinstance(file_in, Nifti1Image):
+                            base_output_flnm = str(file_in.stem).replace('.nii','')
+                            base_output_flnm += "_{}.nii.gz"
+                        else:
+                            base_output_flnm = "output_{}.nii.gz"
+
+                            
+                    dir_out.mkdir(exist_ok=True, parents=True)
+                        
                 if np.prod(img_data.shape) > 512*512*1000:
                     print("Shape of output image is very big. Setting nr_threads_saving=1 to save memory.")
                     nr_threads_saving = 1
-
+                
                 # Code for single threaded execution  (runtime:24s)
                 if nr_threads_saving == 1:
                     for k, v in selected_classes.items():
                         binary_img = img_data == k
-                        output_path = str(file_out / f"{v}.nii.gz")
+                        output_path = str(dir_out / base_output_flnm.format(v))
                         nib.save(nib.Nifti1Image(binary_img.astype(np.uint8), img_pred.affine, new_header), output_path)
                 else:
                     # Code for multithreaded execution
                     #   Speed with different number of threads:
                     #   1: 46s, 2: 24s, 6: 11s, 10: 8s, 14: 8s
                     nib.save(img_pred, tmp_dir / "s01.nii.gz")
-                    _ = p_map(partial(save_segmentation_nifti, tmp_dir=tmp_dir, file_out=file_out, nora_tag="None", header=new_header, task_name=task_name, quiet=quiet),
+                    output_path = str(dir_out / base_output_flnm)
+                    _ = p_map(partial(save_segmentation_nifti, tmp_dir=tmp_dir, output_path=output_path, nora_tag="None", header=new_header, task_name=task_name, quiet=quiet),
                             selected_classes.items(), num_cpus=nr_threads_saving, disable=quiet)
 
             if not quiet: print(f"  Saved in {time.time() - st:.2f}s")
 
 
-    return img_out, img_in_orig
+    return img_out
 
