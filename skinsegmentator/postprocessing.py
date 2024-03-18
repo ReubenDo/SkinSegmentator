@@ -1,3 +1,6 @@
+# ADAPTED FROM TotalSegmentator: https://github.com/wasserth/TotalSegmentator/tree/master/totalsegmentator
+
+
 import time
 from pathlib import Path
 import numpy as np

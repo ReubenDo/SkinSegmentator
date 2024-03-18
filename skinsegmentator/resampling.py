@@ -1,3 +1,5 @@
+# ADAPTED FROM TotalSegmentator: https://github.com/wasserth/TotalSegmentator/tree/master/totalsegmentator
+
 # pylint: disable=relative-beyond-top-level
 
 import os

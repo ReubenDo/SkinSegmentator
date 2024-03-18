@@ -1,3 +1,5 @@
+# ADAPTED FROM TotalSegmentator: https://github.com/wasserth/TotalSegmentator/tree/master/totalsegmentator
+
 import nibabel as nib
 
 def as_closest_canonical(img_in):

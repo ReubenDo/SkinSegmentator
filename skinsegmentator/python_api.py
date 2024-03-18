@@ -1,4 +1,6 @@
 
+# ADAPTED FROM TotalSegmentator: https://github.com/wasserth/TotalSegmentator/tree/master/totalsegmentator
+
 from pathlib import Path
 from typing import Union
 from nibabel.nifti1 import Nifti1Image
@@ -28,7 +30,8 @@ def skinsegmentator(input: Union[str, Path, Nifti1Image],
     if output is not None:
         output = Path(output)
     else:
-        raise ValueError("Output path is required.")
+        skip_saving = True
+        # raise ValueError("Output path is required.")
 
     # available devices: gpu | cpu | mps
     if device == "gpu": device = "cuda"

@@ -1,3 +1,5 @@
+# ADAPTED FROM TotalSegmentator: https://github.com/wasserth/TotalSegmentator/tree/master/totalsegmentator
+
 import os
 import sys
 import time

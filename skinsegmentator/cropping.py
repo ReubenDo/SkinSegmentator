@@ -1,3 +1,5 @@
+# ADAPTED FROM TotalSegmentator: https://github.com/wasserth/TotalSegmentator/tree/master/totalsegmentator
+
 import numpy as np
 import nibabel as nib
 

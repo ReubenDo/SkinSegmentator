@@ -1,3 +1,5 @@
+# ADAPTED FROM TotalSegmentator: https://github.com/wasserth/TotalSegmentator/tree/master/totalsegmentator
+
 import sys
 from pathlib import Path
 p_dir = str(Path(__file__).absolute().parents[1])
