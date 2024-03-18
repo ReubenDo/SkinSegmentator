@@ -12,7 +12,7 @@ Install dependencies:
 
 Install SkinSegmentator
 ```
-pip install -U git+https://github.com/ReubenDo/SkinSegmentator#egg=SkinSegmentator
+pip install skinsegmentator
 ```
 
 
