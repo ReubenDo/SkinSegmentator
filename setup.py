@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 
 setup(name='SkinSegmentator',
-        version='1.1.0',
+        version='1.2.0',
         description='Robust segmentation of skin surface in MR images.',
         long_description="See Readme.md on github for more details.",
         url='https://github.com/reubendo/SkinSegmentator',
